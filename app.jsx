@@ -39,13 +39,37 @@ function HeroCarousel({ photos }) {
 
 function App() {
   const DONATION_URL =
-    "https://lys-espoir-unis-contre-le-neuroblastome.s2.yapla.com/fr/faire-un-don/detail/un-espoir-pour-lysea-a-rome/15342#don-details";
-  const photos = ["lysea1.png", "lysea2.png", "photo1.jpg", "photo4.jpg", "photo5.jpg"];
+    "https://lys-espoir-unis-contre-le-neuroblastome.s2.yapla.com/fr/faire-un-don/donate/un-espoir-pour-lysea-a-rome/15342";
+  const photos = [
+    "photo/IMG_0042.jpeg",
+    "photo/IMG_5990.jpeg",
+    "photo/IMG_5998.jpeg",
+    "photo/IMG_6051.jpeg",
+    "photo/IMG_6288.jpeg",
+    "photo/IMG_6623.jpeg",
+    "photo/IMG_6690.jpeg",
+    "photo/IMG_6903.jpeg",
+    "photo/IMG_6953.jpeg",
+    "photo/IMG_7113.jpeg",
+  ];
   const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61587588269464";
   const INSTAGRAM_URL = "https://www.instagram.com/lys.espoir";
-  const KLYON_URL = "https://klykohen.fr";
+  const KLYON_URL = "https://klyon.fr";
+  const videos = [
+    {
+      title: "Premier combat de Lyséa",
+      subtitle: "Vidéo du premier cancer",
+      src: "video/whatsapp-web.mp4",
+    },
+    {
+      title: "Passage France 3",
+      subtitle: "Reportage TV",
+      src: "video/france3-seek.mp4",
+    },
+  ];
   const [navOpen, setNavOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentVideo, setCurrentVideo] = useState(0);
 
   useEffect(() => {
     const items = document.querySelectorAll("[data-animate]");
@@ -72,6 +96,8 @@ function App() {
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % photos.length);
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + photos.length) % photos.length);
+  const nextVideo = () => setCurrentVideo((prev) => (prev + 1) % videos.length);
+  const prevVideo = () => setCurrentVideo((prev) => (prev - 1 + videos.length) % videos.length);
 
   return (
     <>
@@ -121,6 +147,17 @@ function App() {
           </div>
         </section>
 
+        <section id="lys-info" className="section lys-info">
+          <div className="container">
+            <article className="lys-info-card" data-animate>
+              <p className="lys-info-badge">LYS&apos;INFO</p>
+              <h3>Dernière info</h3>
+              <p>Départ prévu : dimanche 12 avril 2026 pour la greffe de CAR-T en Italie.</p>
+              <p className="lys-info-closing">Nous vous donnerons des nouvelles régulièrement.</p>
+            </article>
+          </div>
+        </section>
+
         <section id="identite" className="identity section">
           <div className="container identity-card" data-animate>
             <h2>Lys’Espoir</h2>
@@ -143,6 +180,7 @@ function App() {
                 <h3>Septembre 2021</h3>
                 <p>Diagnostic d’un neuroblastome métastatique de stade IV. Notre vie bascule.</p>
                 <p>Les traitements s’enchaînent : chimiothérapies lourdes, opérations, greffes, radiothérapie.</p>
+                <a href="#videos" className="story-video-link">Voir la vidéo du premier combat</a>
               </article>
               <article className="story-block stage-remission" data-date="2023" data-animate>
                 <h3>2023 - Rémission</h3>
@@ -216,70 +254,43 @@ function App() {
           </div>
         </section>
 
-        <section id="moments" className="section moments">
-          <div className="container">
-            <div className="section-head" data-animate>
-              <h2>Des moments de vie, de courage et d’espoir</h2>
+        <section id="videos" className="section media-section">
+          <div className="container media-card" data-animate>
+            <div className="media-head">
+              <p className="kicker">Vidéos</p>
+              <h2>Témoignages vidéo</h2>
+              <p>Retrouvez la vidéo du premier combat et le passage sur France 3.</p>
             </div>
-            <div className="moments-shell" data-animate>
-              <div className="moments-stage">
-                <figure className="moments-main-photo">
-                  <img src={photos[currentSlide]} alt={`Lyséa - photo ${currentSlide + 1}`} decoding="async" fetchPriority="high" />
-                  <figcaption>Des instants vrais, pleins de force et de douceur.</figcaption>
-                </figure>
-                <button className="moments-nav prev" onClick={prevSlide} aria-label="Photo précédente">
-                  &#8249;
-                </button>
-                <button className="moments-nav next" onClick={nextSlide} aria-label="Photo suivante">
-                  &#8250;
-                </button>
+            <div className="video-slider">
+              <button className="video-nav prev" onClick={prevVideo} aria-label="Vidéo précédente">&#8249;</button>
+              <div className="media-video-wrap">
+                <video key={videos[currentVideo].src} controls preload="metadata" playsInline>
+                  <source src={videos[currentVideo].src} type="video/mp4" />
+                  Votre navigateur ne peut pas lire cette vidéo.
+                </video>
               </div>
-
-              <div className="moments-thumbs">
-                {photos.map((src, index) => (
-                  <button
-                    key={`thumb-${src}`}
-                    className={`moments-thumb ${index === currentSlide ? "is-active" : ""}`}
-                    onClick={() => setCurrentSlide(index)}
-                    aria-label={`Voir la photo ${index + 1}`}
-                  >
-                    <img src={src} alt={`Miniature ${index + 1}`} loading="lazy" decoding="async" />
-                  </button>
-                ))}
-              </div>
-
-              <div className="moments-info">
-                <article>
-                  <h3>Une enfant extraordinaire</h3>
-                  <p>Malgre les soins, Lysea garde son sourire et sa lumiere.</p>
-                </article>
-                <article>
-                  <h3>Une famille unie</h3>
-                  <p>Chaque jour est organise pour l'accompagner dans les meilleures conditions.</p>
-                </article>
-                <article>
-                  <h3>Une solidarite reelle</h3>
-                  <p>Chaque don aide concretement son parcours et soutient d'autres familles.</p>
-                </article>
-              </div>
+              <button className="video-nav next" onClick={nextVideo} aria-label="Vidéo suivante">&#8250;</button>
+            </div>
+            <div className="video-meta">
+              <strong>{videos[currentVideo].title}</strong>
+              <span>{videos[currentVideo].subtitle}</span>
             </div>
           </div>
         </section>
 
-        <section id="video-france3" className="section media-section">
-          <div className="container media-card" data-animate>
-            <div className="media-head">
-              <p className="kicker">Passage TV</p>
-              <h2>Lyséa sur France 3</h2>
-              <p>Découvrez le reportage consacré au combat de Lyséa.</p>
-            </div>
-            <div className="media-video-wrap">
-              <video controls preload="metadata" playsInline>
-                <source src="lyseafrance3-seek.mp4" type="video/mp4" />
-                <source src="lyseafrance3.mov" type="video/quicktime" />
-                Votre navigateur ne peut pas lire cette vidéo.
-              </video>
-            </div>
+        <section id="remerciements" className="section thanks-section">
+          <div className="container">
+            <article className="thanks-card" data-animate>
+              <h2>Remerciements</h2>
+              <p>
+                Merci du fond du cœur à toutes les personnes - famille, amis, proches
+                et inconnus - qui nous soutiennent chaque jour.
+              </p>
+              <p>
+                Votre bienveillance, vos messages et votre générosité nous donnent de
+                la force pour continuer ce combat.
+              </p>
+            </article>
           </div>
         </section>
 

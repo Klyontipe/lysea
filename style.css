@@ -351,6 +351,84 @@ blockquote cite {
   letter-spacing: 0.08em;
 }
 
+.lys-info {
+  padding-top: 0.4rem;
+}
+
+.lys-info-card {
+  width: min(540px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(140deg, #fff, #fff1f8 46%, #ffe8f2);
+  border: 2px solid #e6a0bf;
+  border-radius: calc(var(--radius) + 6px);
+  box-shadow: 0 18px 36px rgba(120, 36, 83, 0.22);
+  padding: 1rem 1rem 0.9rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.lys-info-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.75), transparent 40%);
+  pointer-events: none;
+}
+
+.lys-info-badge {
+  display: inline-block;
+  margin: 0 0 0.45rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #d5316e, #f0b45e);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lys-info-card h2 {
+  margin-bottom: 0.7rem;
+}
+
+.lys-info-card h3 {
+  margin: 0.2rem 0 0.55rem;
+}
+
+.lys-info-card p {
+  margin: 0 0 0.68rem;
+  color: #5f5167;
+}
+
+.lys-info-highlight {
+  font-weight: 800;
+  color: #8f2f5f;
+}
+
+.lys-info-closing {
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.thanks-section {
+  padding-bottom: 2.1rem;
+}
+
+.thanks-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.1rem;
+}
+
+.thanks-card p {
+  color: var(--muted);
+  margin: 0 0 0.55rem;
+}
+
 .section-head {
   margin-bottom: 1.4rem;
 }
@@ -432,6 +510,14 @@ blockquote cite {
 .story-block p,
 .story-block li {
   color: var(--muted);
+}
+
+.story-video-link {
+  display: inline-flex;
+  margin-top: 0.4rem;
+  font-weight: 700;
+  color: #8f2f5f;
+  border-bottom: 1px dashed rgba(143, 47, 95, 0.45);
 }
 
 .story-block strong {
@@ -719,6 +805,41 @@ blockquote cite {
   max-height: 70vh;
 }
 
+.video-slider {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.video-nav {
+  border: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #6f4b60;
+  background: #fff;
+  box-shadow: 0 6px 14px rgba(34, 17, 44, 0.15);
+}
+
+.video-meta {
+  margin-top: 0.65rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.video-meta strong {
+  font-size: 1.03rem;
+}
+
+.video-meta span {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .cta-card {
   padding: 2rem;
   text-align: center;
@@ -884,6 +1005,63 @@ blockquote cite {
 }
 
 @media (max-width: 760px) {
+  .container {
+    width: min(1120px, 100% - 1.2rem);
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .hero {
+    padding: 2.4rem 0 1.2rem;
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 8vw, 2.45rem);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .hero-carousel {
+    min-height: 290px;
+    padding: 0.55rem;
+  }
+
+  .hero-carousel-track {
+    min-height: 250px;
+  }
+
+  .hero-carousel-slide img {
+    border-radius: 12px;
+  }
+
+  .lys-info-card {
+    width: 100%;
+    padding: 0.85rem 0.85rem 0.75rem;
+  }
+
+  .donate-grid {
+    gap: 1rem;
+  }
+
+  .don-box,
+  .media-card,
+  .thanks-card {
+    padding: 1rem;
+  }
+
+  .video-meta strong {
+    font-size: 0.98rem;
+  }
+
   .header-shell {
     grid-template-columns: auto auto auto;
   }
@@ -927,21 +1105,15 @@ blockquote cite {
     grid-template-columns: 1fr;
   }
 
-  .moments-shell {
+  .video-slider {
     grid-template-columns: 1fr;
   }
 
-  .moments-main-photo {
-    aspect-ratio: 4 / 3;
+  .video-nav {
+    justify-self: center;
   }
 
-  .moments-info {
-    grid-template-columns: 1fr;
-  }
-
-  .moments-nav {
-    width: 34px;
-    height: 34px;
-    font-size: 1.5rem;
+  .footer-grid {
+    gap: 1.4rem;
   }
 }
