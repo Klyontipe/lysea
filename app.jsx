@@ -67,6 +67,56 @@ function App() {
       src: "video/france3-seek.mp4",
     },
   ];
+  const timelineEntries = [
+    {
+      date: "09.2021",
+      title: "Septembre 2021",
+      className: "stage-critical",
+      paragraphs: [
+        "Diagnostic d’un neuroblastome métastatique de stade IV. Notre vie bascule.",
+        "Les traitements s’enchaînent : chimiothérapies lourdes, opérations, greffes, radiothérapie.",
+      ],
+      linkToVideos: true,
+      images: ["frise/septembre2021.jpeg", "frise/septembre2021_2.jpeg"],
+    },
+    {
+      date: "2023",
+      title: "2023 - Rémission",
+      className: "stage-remission",
+      paragraphs: [
+        "Après des mois d’épreuves, le mot tant attendu tombe : RÉMISSION.",
+        "On respire, on reconstruit, on essaie de reprendre une vie plus douce.",
+      ],
+      images: ["frise/2023 rémission.jpeg", "frise/2023 rémission 2.jpeg"],
+    },
+    {
+      date: "07.2025",
+      title: "Juillet 2025 - Rechute",
+      className: "stage-critical",
+      paragraphs: [
+        "Les douleurs reviennent. Le verdict tombe : RECHUTE.",
+        "Retour en Normandie au CHU de Rouen, où Lyséa est suivie avec confiance.",
+      ],
+      images: ["frise/2025 rechute.jpeg"],
+    },
+    {
+      date: "08.2025",
+      title: "Un combat qui continue",
+      className: "stage-treatment",
+      paragraphs: ["La maladie est stabilisée, mais rien n’est gagné."],
+      bullets: ["7 cures de chimiothérapie et d’immunothérapie", "17 séances de radiothérapie en février 2026"],
+      images: ["frise/combatcontinu.jpeg", "frise/combatcontinu2.jpeg", "frise/combatcontinu3.jpeg"],
+    },
+    {
+      date: "02.2026",
+      title: "Nouvelle étape : Rome",
+      className: "stage-hope",
+      paragraphs: [
+        "Lyséa est acceptée dans un essai clinique CAR-T en Italie.",
+        "Un immense espoir, avec des coûts importants autour du traitement.",
+      ],
+    },
+  ];
   const [navOpen, setNavOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentVideo, setCurrentVideo] = useState(0);
@@ -176,35 +226,41 @@ function App() {
               <h2>Le combat de Lyséa - Ensemble, continuons d’y croire</h2>
             </div>
             <div className="story-flow">
-              <article className="story-block stage-critical" data-date="09.2021" data-animate>
-                <h3>Septembre 2021</h3>
-                <p>Diagnostic d’un neuroblastome métastatique de stade IV. Notre vie bascule.</p>
-                <p>Les traitements s’enchaînent : chimiothérapies lourdes, opérations, greffes, radiothérapie.</p>
-                <a href="#videos" className="story-video-link">Voir la vidéo du premier combat</a>
-              </article>
-              <article className="story-block stage-remission" data-date="2023" data-animate>
-                <h3>2023 - Rémission</h3>
-                <p>Après des mois d’épreuves, le mot tant attendu tombe : <strong>RÉMISSION</strong>.</p>
-                <p>On respire, on reconstruit, on essaie de reprendre une vie plus douce.</p>
-              </article>
-              <article className="story-block stage-critical" data-date="07.2025" data-animate>
-                <h3>Juillet 2025 - Rechute</h3>
-                <p>Les douleurs reviennent. Le verdict tombe : <strong>RECHUTE</strong>.</p>
-                <p>Retour en Normandie au CHU de Rouen, où Lyséa est suivie avec confiance.</p>
-              </article>
-              <article className="story-block stage-treatment" data-date="08.2025" data-animate>
-                <h3>Un combat qui continue</h3>
-                <ul>
-                  <li>7 cures de chimiothérapie et d’immunothérapie</li>
-                  <li>17 séances de radiothérapie en février 2026</li>
-                </ul>
-                <p>La maladie est stabilisée, mais rien n’est gagné.</p>
-              </article>
-              <article className="story-block stage-hope" data-date="02.2026" data-animate>
-                <h3>Nouvelle étape : Rome</h3>
-                <p>Lyséa est acceptée dans un essai clinique CAR-T en Italie.</p>
-                <p>Un immense espoir, avec des coûts importants autour du traitement.</p>
-              </article>
+              {timelineEntries.map((entry) => (
+                <article key={entry.title} className={`story-block ${entry.className}`} data-date={entry.date} data-animate>
+                  <h3>{entry.title}</h3>
+                  {entry.paragraphs?.map((paragraph) => (
+                    <p key={paragraph}>
+                      {paragraph.includes("RÉMISSION") || paragraph.includes("RECHUTE") ? (
+                        <>
+                          {paragraph.split(/(RÉMISSION|RECHUTE)/g).map((part) =>
+                            part === "RÉMISSION" || part === "RECHUTE" ? <strong key={`${paragraph}-${part}`}>{part}</strong> : part
+                          )}
+                        </>
+                      ) : (
+                        paragraph
+                      )}
+                    </p>
+                  ))}
+                  {entry.bullets?.length ? (
+                    <ul>
+                      {entry.bullets.map((bullet) => (
+                        <li key={bullet}>{bullet}</li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  {entry.images?.length ? (
+                    <div className="story-gallery">
+                      {entry.images.map((src, imageIndex) => (
+                        <figure key={`${entry.title}-${src}`} className="story-gallery-item">
+                          <img src={src} alt={`${entry.title} - photo ${imageIndex + 1}`} loading="lazy" />
+                        </figure>
+                      ))}
+                    </div>
+                  ) : null}
+                  {entry.linkToVideos ? <a href="#videos" className="story-video-link">Voir la vidéo du premier combat</a> : null}
+                </article>
+              ))}
             </div>
           </div>
         </section>

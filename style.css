@@ -76,16 +76,25 @@ a {
   padding: 0.7rem 0;
 }
 
+.site-header .container.header-shell {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-left: 2.6rem;
+  padding-right: 1rem;
+}
+
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 1.25rem;
 }
 
 .brand img {
   width: 40px;
   height: 40px;
   object-fit: contain;
+  margin-right: 6px;
   animation: logo-breath 6s ease-in-out infinite;
 }
 
@@ -510,6 +519,29 @@ blockquote cite {
 .story-block p,
 .story-block li {
   color: var(--muted);
+}
+
+.story-gallery {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.story-gallery-item {
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #eadbe3;
+  box-shadow: 0 8px 18px rgba(34, 17, 44, 0.1);
+  background: #fff;
+}
+
+.story-gallery-item img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  image-rendering: auto;
 }
 
 .story-video-link {
@@ -953,15 +985,15 @@ blockquote cite {
 @keyframes logo-breath {
   0% {
     filter: drop-shadow(0 0 0 rgba(180, 94, 138, 0));
-    transform: scale(1);
+    transform: scale(2.4);
   }
   50% {
     filter: drop-shadow(0 4px 10px rgba(180, 94, 138, 0.25));
-    transform: scale(1.035);
+    transform: scale(2.48);
   }
   100% {
     filter: drop-shadow(0 0 0 rgba(180, 94, 138, 0));
-    transform: scale(1);
+    transform: scale(2.4);
   }
 }
 
@@ -1001,6 +1033,10 @@ blockquote cite {
   .story-block:nth-child(odd)::before {
     left: -1.6rem;
     right: auto;
+  }
+
+  .story-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1060,6 +1096,17 @@ blockquote cite {
 
   .video-meta strong {
     font-size: 0.98rem;
+  }
+
+  .story-block {
+    width: calc(100% - 1.7rem);
+    margin-left: 1.7rem !important;
+    padding: 1rem 0.95rem;
+  }
+
+  .story-gallery {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
 
   .header-shell {
