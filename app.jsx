@@ -156,7 +156,6 @@ function App() {
           <a href="#hero" className="brand">
             <img src="logo.png" alt="Logo Lys’Espoir" />
             <span>
-              <strong>LYS’ESPOIR</strong>
               <small>Association de soutien à Lyséa</small>
             </span>
           </a>

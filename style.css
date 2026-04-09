@@ -1,10 +1,10 @@
 :root {
-  --bg: #f9f5f7;
-  --surface: #ffffff;
-  --surface-soft: #f3eaef;
+  --bg: #f4e3eb;
+  --surface: #fff2f8;
+  --surface-soft: #edd9e4;
   --text: #2e2533;
   --muted: #6c6072;
-  --line: #e8dbe3;
+  --line: #ddc5d2;
   --pink: #d98fb1;
   --pink-dark: #b45e8a;
   --gold: #e8c57a;
@@ -63,7 +63,7 @@ a {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 241, 248, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -98,15 +98,11 @@ a {
   animation: logo-breath 6s ease-in-out infinite;
 }
 
-.brand strong {
-  display: block;
-  font-size: 0.92rem;
-  letter-spacing: 0.1em;
-}
-
 .brand small {
   color: var(--muted);
-  font-size: 0.7rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .main-nav {
