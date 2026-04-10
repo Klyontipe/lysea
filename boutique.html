@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lys’Espoir - Boutique</title>
+  <meta
+    name="description"
+    content="Boutique solidaire de Lys’Espoir. Les produits arrivent bientot pour soutenir Lyséa."
+  />
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .shop-page {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 2.5rem 0;
+    }
+
+    .shop-card {
+      width: min(760px, 100%);
+      background: linear-gradient(155deg, #fff4fa, #fde8f2);
+      border: 1px solid #e4c6d6;
+      border-radius: 16px;
+      box-shadow: 0 10px 24px rgba(36, 22, 46, 0.08);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .shop-card p {
+      color: #6c6072;
+      margin: 0 0 0.9rem;
+    }
+
+    .shop-card .btn {
+      margin-top: 0.4rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-shell">
+      <a href="index.html#hero" class="brand">
+        <img src="logo.png" alt="Logo Lys’Espoir" />
+        <span>
+          <small>Association de soutien à Lyséa</small>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html#hero">Accueil</a>
+        <a href="index.html#histoire">Le combat de Lyséa</a>
+        <a href="boutique.html" aria-current="page">Boutique</a>
+      </nav>
+      <a href="index.html#don" class="btn btn-primary header-donate">Faire un don</a>
+    </div>
+  </header>
+
+  <main class="shop-page">
+    <section class="container" aria-labelledby="boutique-title">
+      <article class="shop-card">
+        <p class="kicker">Boutique solidaire</p>
+        <h1 id="boutique-title">La boutique arrive bientot</h1>
+        <p>
+          Nous preparons des articles solidaires pour soutenir Lyséa et l'association.
+          Revenez tres vite pour la decouvrir.
+        </p>
+        <a href="index.html#hero" class="btn btn-line">Retour a l'accueil</a>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

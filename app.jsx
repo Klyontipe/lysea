@@ -148,6 +148,7 @@ function App() {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + photos.length) % photos.length);
   const nextVideo = () => setCurrentVideo((prev) => (prev + 1) % videos.length);
   const prevVideo = () => setCurrentVideo((prev) => (prev - 1 + videos.length) % videos.length);
+  const closeNav = () => setNavOpen(false);
 
   return (
     <>
@@ -165,15 +166,15 @@ function App() {
           </button>
 
           <nav className={`main-nav ${navOpen ? "show" : ""}`} aria-label="Navigation principale">
-            <a href="#hero">Accueil</a>
-            <a href="#histoire">Le combat de Lyséa</a>
-            <a href={DONATION_URL} target="_blank" rel="noreferrer">Faire un don</a>
-            <a href="#contact">Contact</a>
+            <a href="#hero" onClick={closeNav}>Accueil</a>
+            <a href="#histoire" onClick={closeNav}>Le combat de Lyséa</a>
+            <a href="boutique.html" onClick={closeNav}>Boutique</a>
+            <a href={DONATION_URL} target="_blank" rel="noreferrer" onClick={closeNav}>Faire un don</a>
+            <a href="#contact" onClick={closeNav}>Contact</a>
           </nav>
           <a href={DONATION_URL} className="btn btn-primary header-donate" target="_blank" rel="noreferrer">Faire un don</a>
         </div>
       </header>
-
       <main id="main">
         <section id="hero" className="hero">
           <div className="container hero-grid">
@@ -368,6 +369,7 @@ function App() {
             <h4>Liens utiles</h4>
             <p><a href="#hero">Accueil</a></p>
             <p><a href="#histoire">Le combat de Lyséa</a></p>
+            <p><a href="boutique.html">Boutique</a></p>
             <div className="social-links">
               <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Facebook Lys'Espoir">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-3 0-5 2-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.6.4-1 1-1z"></path></svg>
