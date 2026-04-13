@@ -170,6 +170,7 @@ function App() {
             <a href="#histoire" onClick={closeNav}>Le combat de Lyséa</a>
             <a href="boutique.html" onClick={closeNav}>Boutique</a>
             <a href={DONATION_URL} target="_blank" rel="noreferrer" onClick={closeNav}>Faire un don</a>
+            <a href="politique-mentions.html" onClick={closeNav}>Politique/Mentions</a>
             <a href="#contact" onClick={closeNav}>Contact</a>
           </nav>
           <a href={DONATION_URL} className="btn btn-primary header-donate" target="_blank" rel="noreferrer">Faire un don</a>
@@ -277,7 +278,7 @@ function App() {
                 <article><strong>50 €</strong><span>coût réel 17 €</span></article>
                 <article><strong>100 €</strong><span>coût réel 34 €</span></article>
                 <article><strong>200 €</strong><span>coût réel 68 €</span></article>
-                <article className="wide"><strong>66 % déductibles</strong><span>dans la limite prévue par la loi</span></article>
+                <article className="wide"><strong>75 % déductibles</strong><span>dans la limite prévue par la loi</span></article>
               </div>
             </div>
             <aside className="don-box" data-animate>
@@ -370,6 +371,7 @@ function App() {
             <p><a href="#hero">Accueil</a></p>
             <p><a href="#histoire">Le combat de Lyséa</a></p>
             <p><a href="boutique.html">Boutique</a></p>
+            <p><a href="politique-mentions.html">Politique/Mentions</a></p>
             <div className="social-links">
               <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Facebook Lys'Espoir">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-3 0-5 2-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.6.4-1 1-1z"></path></svg>
