@@ -275,10 +275,10 @@ function App() {
                 d’autres familles confrontées au neuroblastome.
               </p>
               <div className="tax-cards">
-                <article><strong>50 €</strong><span>coût réel 12,50 €</span></article>
-                <article><strong>100 €</strong><span>coût réel 25 €</span></article>
-                <article><strong>200 €</strong><span>coût réel 50 €</span></article>
-                <article className="wide"><strong>75 % déductibles</strong><span>dans la limite prévue par la loi</span></article>
+                <article><strong>50 €</strong><span>coût réel 17 €</span></article>
+                <article><strong>100 €</strong><span>coût réel 34 €</span></article>
+                <article><strong>200 €</strong><span>coût réel 68 €</span></article>
+                <article className="wide"><strong>66 % déductibles</strong><span>dans la limite prévue par la loi</span></article>
               </div>
             </div>
             <aside className="don-box" data-animate>
