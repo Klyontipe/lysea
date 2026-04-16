@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Lys’Espoir - Lys’Info</title>
+  <meta
+    name="description"
+    content="Lys'Info : nouvelles du parcours de Lyséa à Rome, au fil des jours."
+  />
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Italiana&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .info-page {
+      padding: 2rem 0 3rem;
+      position: relative;
+      overflow-x: clip;
+      background: linear-gradient(165deg, #f5f0e8 0%, #e8eef6 38%, #f3ebe5 72%, #e3edf5 100%);
+    }
+
+    .info-page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(ellipse 70% 45% at 100% 5%, rgba(0, 146, 70, 0.08), transparent 50%),
+        radial-gradient(ellipse 65% 40% at 0% 95%, rgba(206, 43, 55, 0.07), transparent 48%),
+        radial-gradient(circle at 50% 35%, rgba(31, 79, 138, 0.07), transparent 45%),
+        radial-gradient(circle at 12% 8%, rgba(217, 143, 177, 0.12), transparent 42%);
+      pointer-events: none;
+    }
+
+    .info-shell {
+      width: min(720px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .info-head {
+      background: linear-gradient(145deg, #ffffff 0%, #fff8fb 55%, #f4f0f8 100%);
+      border: 1px solid rgba(201, 122, 158, 0.35);
+      border-radius: 22px;
+      box-shadow:
+        0 20px 50px rgba(62, 38, 72, 0.12),
+        0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+      padding: 1.35rem 1.5rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-head::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 6px;
+      background: linear-gradient(
+        90deg,
+        #009246 0%,
+        #009246 18%,
+        #f4f5f0 18%,
+        #f4f5f0 36%,
+        #ce2b37 36%,
+        #ce2b37 54%,
+        #c94d6d 54%,
+        #d98fb1 72%,
+        #1f4f8a 100%
+      );
+    }
+
+    .flash-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: "Manrope", system-ui, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8b3a55;
+      margin-bottom: 0.5rem;
+    }
+
+    .flash-banner .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #e24a6a;
+      box-shadow: 0 0 0 0 rgba(226, 74, 106, 0.45);
+      animation: lysinfo-pulse 2.2s ease-out infinite;
+    }
+
+    @keyframes lysinfo-pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(226, 74, 106, 0.45);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(226, 74, 106, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(226, 74, 106, 0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flash-banner .pulse-dot {
+        animation: none;
+      }
+
+      .rome-rail__fill {
+        transition: none;
+      }
+    }
+
+    .info-head h1 {
+      font-family: "Italiana", "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.85rem, 4.5vw, 2.35rem);
+      font-weight: 400;
+      color: #2a1f32;
+      margin: 0 0 0.65rem;
+      line-height: 1.15;
+      letter-spacing: 0.02em;
+    }
+
+    .info-lead {
+      margin: 0;
+      color: #5a4a5c;
+      line-height: 1.65;
+      font-size: 1.02rem;
+      max-width: 42rem;
+    }
+
+    .info-lead-ita {
+      display: block;
+      margin-top: 0.85rem;
+      font-family: "Italiana", serif;
+      font-size: 1.2rem;
+      color: #3d5a4a;
+      letter-spacing: 0.04em;
+    }
+
+    .info-meta-bar {
+      margin: 0 0 0.85rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid rgba(232, 219, 227, 0.85);
+      font-size: 0.82rem;
+    }
+
+    .info-back {
+      font-weight: 700;
+      color: #1f4f8a;
+      text-decoration: none;
+    }
+
+    .info-back:hover {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .rome-rail {
+      position: fixed;
+      right: max(0.35rem, env(safe-area-inset-right));
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 30;
+      width: min(4.6rem, 12vw);
+      pointer-events: none;
+      filter: drop-shadow(0 4px 14px rgba(31, 79, 138, 0.12));
+    }
+
+    .rome-rail__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.45rem 0.35rem 0.5rem;
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.96) 0%, rgba(248, 252, 255, 0.94) 55%, rgba(255, 252, 250, 0.96) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      box-shadow:
+        0 6px 18px rgba(31, 79, 138, 0.1),
+        0 0 0 1px rgba(0, 146, 70, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+    }
+
+    .rome-rail__flag {
+      width: 1rem;
+      height: 0.65rem;
+      border-radius: 2px;
+      background: linear-gradient(90deg, #009246 33%, #f4f5f0 33% 66%, #ce2b37 66%);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      flex-shrink: 0;
+    }
+
+    .rome-rail__title {
+      font-size: 0.5rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-align: center;
+      color: #4a5568;
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .rome-rail__title .rome-rail__title-ita {
+      display: block;
+      font-family: "Italiana", serif;
+      font-weight: 400;
+      font-size: 0.58rem;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: #1f4f8a;
+      margin-top: 0.08rem;
+    }
+
+    .rome-rail__pct {
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+      font-size: 0.68rem;
+      color: #1f4f8a;
+      line-height: 1;
+    }
+
+    .rome-rail__track {
+      position: relative;
+      width: 5px;
+      height: min(16vh, 104px);
+      border-radius: 999px;
+      background: linear-gradient(180deg, #e8e4e8, #dce6ef);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.07);
+      overflow: hidden;
+    }
+
+    .rome-rail__fill {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 0%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #1f4f8a, #009246 42%, #ce2b37 88%);
+      transition: height 0.9s cubic-bezier(0.33, 1, 0.68, 1);
+    }
+
+    .rome-rail__caption {
+      margin: 0;
+      font-size: 0.55rem;
+      color: #6b5a6e;
+      line-height: 1.3;
+      text-align: center;
+      max-height: 3.9em;
+      overflow: hidden;
+    }
+
+    .post-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 2.35rem;
+      padding-bottom: 1rem;
+    }
+
+    .state-card,
+    .post-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow:
+        0 4px 6px rgba(42, 31, 50, 0.04),
+        0 16px 36px rgba(42, 31, 50, 0.08);
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(232, 219, 227, 0.9);
+      scroll-margin-top: 5.5rem;
+    }
+
+    .post-stream > .post-card:nth-child(4n + 1) {
+      border-left: 5px solid #c97a9e;
+    }
+
+    .post-stream > .post-card:nth-child(4n + 2) {
+      border-left: 5px solid #3d7ab8;
+    }
+
+    .post-stream > .post-card:nth-child(4n + 3) {
+      border-left: 5px solid #6b9b7a;
+    }
+
+    .post-stream > .post-card:nth-child(4n) {
+      border-left: 5px solid #c9a227;
+    }
+
+    .state-card {
+      padding: 1.5rem 1.25rem;
+      color: #5d5064;
+      text-align: center;
+      font-weight: 600;
+      border-left: none;
+    }
+
+    .post-card-inner {
+      padding: 1.35rem 1.45rem 1.4rem;
+    }
+
+    .post-kicker {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #9a7d8c;
+      margin-bottom: 0.35rem;
+    }
+
+    .post-card--rome .post-kicker {
+      color: #1f4f8a;
+    }
+
+    .post-date {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #2e2533;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid #f0e6ec;
+    }
+
+    .post-body {
+      padding-left: 0;
+    }
+
+    .post-text {
+      margin: 0 0 1rem;
+      color: #3f3648;
+      line-height: 1.72;
+      white-space: pre-wrap;
+      font-size: 1.02rem;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    .post-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-top: 1.1rem;
+      padding-top: 1rem;
+      border-top: 1px dashed #e8dbe3;
+    }
+
+    .post-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #1f4f8a;
+      font-weight: 700;
+      font-size: 0.86rem;
+      text-decoration: none;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(31, 79, 138, 0.08);
+      transition: background 0.2s ease;
+    }
+
+    .post-link:hover {
+      background: rgba(31, 79, 138, 0.14);
+      text-decoration: none;
+    }
+
+    .post-toggle {
+      border: 0;
+      border-radius: 999px;
+      padding: 0.4rem 0.85rem;
+      background: #f3eaef;
+      color: #553d53;
+      font-weight: 700;
+      font-size: 0.86rem;
+      cursor: pointer;
+    }
+
+    .post-gallery {
+      margin: 0.25rem -0.25rem 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+      background: transparent;
+    }
+
+    .post-gallery li {
+      margin: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(42, 31, 50, 0.1);
+    }
+
+    .post-gallery img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      aspect-ratio: 4 / 3;
+      max-height: 320px;
+    }
+
+    .post-gallery.single {
+      grid-template-columns: 1fr;
+    }
+
+    .post-gallery.single img {
+      aspect-ratio: 16 / 10;
+      max-height: 400px;
+    }
+
+    .post-video-wrap {
+      margin: 0.35rem 0 0;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #141018;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+    }
+
+    .post-video-wrap video {
+      width: 100%;
+      display: block;
+      max-height: min(68vh, 480px);
+    }
+
+    @media (max-width: 760px) {
+      .rome-rail {
+        width: min(3.9rem, 11vw);
+        right: max(0.2rem, env(safe-area-inset-right));
+      }
+
+      .rome-rail__inner {
+        padding: 0.38rem 0.28rem 0.42rem;
+        gap: 0.28rem;
+        border-radius: 10px;
+      }
+
+      .rome-rail__track {
+        width: 4px;
+        height: min(14vh, 88px);
+      }
+
+      .rome-rail__caption {
+        display: none;
+      }
+
+      .rome-rail__title {
+        font-size: 0.48rem;
+      }
+
+      .rome-rail__pct {
+        font-size: 0.62rem;
+      }
+
+      .info-shell {
+        gap: 2rem;
+      }
+
+      .post-stream {
+        gap: 1.85rem;
+      }
+
+      .post-card-inner {
+        padding: 1.15rem 1.1rem 1.2rem;
+      }
+
+      .post-gallery {
+        grid-template-columns: 1fr;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .post-gallery img {
+        max-height: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-shell">
+      <a href="index.html#hero" class="brand">
+        <img src="logo.png" alt="Logo Lys’Espoir" />
+        <span>
+          <small>Association de soutien à Lyséa</small>
+        </span>
+      </a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Ouvrir le menu">
+        <span></span><span></span>
+      </button>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html#hero">Accueil</a>
+        <a href="index.html#histoire">Le combat de Lyséa</a>
+        <a href="lys-info.html" class="italy-tab" aria-current="page">Lys'Info</a>
+        <a href="boutique.html">Boutique</a>
+        <a href="politique-mentions.html">Politique/Mentions</a>
+      </nav>
+      <a href="index.html#don" class="btn btn-primary header-donate">Faire un don</a>
+    </div>
+  </header>
+
+  <main class="info-page">
+    <aside
+      class="rome-rail"
+      aria-label="Progression du séjour à Rome (visible pendant le défilement)"
+    >
+      <div class="rome-rail__inner">
+        <span class="rome-rail__flag" aria-hidden="true"></span>
+        <p class="rome-rail__title">
+          Séjour à Rome
+          <span class="rome-rail__title-ita" lang="it">Viaggio in Italia</span>
+        </p>
+        <span class="rome-rail__pct" id="rome-progress-pct" aria-live="polite">—</span>
+        <div
+          class="rome-rail__track"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          aria-orientation="vertical"
+          aria-labelledby="rome-progress-label"
+          id="rome-progress-bar"
+        >
+          <div class="rome-rail__fill" id="rome-progress-fill"></div>
+        </div>
+        <p class="rome-rail__caption" id="rome-progress-caption">
+          <span id="rome-progress-label"></span>
+        </p>
+      </div>
+    </aside>
+    <section class="container info-shell" aria-labelledby="lys-info-title">
+      <article class="info-head">
+        <p class="info-meta-bar">
+          <a href="index.html#hero" class="info-back">← Retour à l’accueil</a>
+        </p>
+        <p class="flash-banner" role="status">
+          <span class="pulse-dot" aria-hidden="true"></span>
+          Lys&apos;Info — Notizie da Roma
+        </p>
+        <h1 id="lys-info-title">Lys'Info</h1>
+        <p class="info-lead">
+          Arrivée à Rome le <strong>12 avril 2026</strong>.<br />
+          Séjour d’<strong>environ deux mois</strong>.
+          <span class="info-lead-ita" lang="it">Insieme, andiamo avanti.</span>
+        </p>
+      </article>
+      <div id="posts-root" class="post-stream">
+        <article class="state-card">Chargement des actualités...</article>
+      </div>
+    </section>
+  </main>
+  <script>
+    (function () {
+      /* Aligné sur l’heure des posts (12 avr. 2026, 16:16 UTC = 18:16 à Paris/Rome). */
+      const ROME_START = new Date(Date.UTC(2026, 3, 12, 16, 16, 0));
+      const ROME_STAY_DAYS = 60;
+      const ROME_END = new Date(ROME_START.getTime() + ROME_STAY_DAYS * 86400000);
+
+      function updateRomeProgress() {
+        const fill = document.getElementById("rome-progress-fill");
+        const pctEl = document.getElementById("rome-progress-pct");
+        const label = document.getElementById("rome-progress-label");
+        const bar = document.getElementById("rome-progress-bar");
+        if (!fill || !pctEl || !label || !bar) return;
+
+        const fmtWithTime = new Intl.DateTimeFormat("fr-FR", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        const now = new Date();
+        const totalMs = ROME_END - ROME_START;
+        let elapsedMs = now - ROME_START;
+        let pct = (elapsedMs / totalMs) * 100;
+        pct = Math.max(0, Math.min(100, pct));
+
+        const dayFloat = elapsedMs / 86400000;
+        const dayIndex = Math.floor(dayFloat) + 1;
+
+        requestAnimationFrame(() => {
+          fill.style.height = pct.toFixed(1) + "%";
+          fill.style.width = "100%";
+          pctEl.textContent = Math.round(pct) + " %";
+          bar.setAttribute("aria-valuenow", String(Math.round(pct)));
+
+          if (now < ROME_START) {
+            label.textContent =
+              "La progression débutera le " + fmtWithTime.format(ROME_START) + ".";
+            pctEl.textContent = "0 %";
+            fill.style.height = "0%";
+            bar.setAttribute("aria-valuenow", "0");
+          } else if (now > ROME_END) {
+            label.textContent = "Fin de la période estimée sur place — suite à suivre dans les nouvelles ci-dessous.";
+            pctEl.textContent = "100 %";
+            fill.style.height = "100%";
+            bar.setAttribute("aria-valuenow", "100");
+          } else {
+            label.textContent =
+              "Jour " +
+              dayIndex +
+              " sur environ " +
+              ROME_STAY_DAYS +
+              ". Du " +
+              fmtWithTime.format(ROME_START) +
+              " au " +
+              fmtWithTime.format(ROME_END) +
+              ".";
+          }
+        });
+      }
+
+      updateRomeProgress();
+
+      const POSTS_URL = "data/facebook-posts.json";
+      const root = document.getElementById("posts-root");
+
+      function formatDate(value) {
+        try {
+          return new Intl.DateTimeFormat("fr-FR", {
+            dateStyle: "long",
+            timeStyle: "short",
+          }).format(new Date(value));
+        } catch {
+          return value || "";
+        }
+      }
+
+      function createState(message) {
+        const card = document.createElement("article");
+        card.className = "state-card";
+        card.textContent = message;
+        return card;
+      }
+
+      function createTextBlock(message) {
+        if (!message) return null;
+        const p = document.createElement("p");
+        p.className = "post-text";
+        const trimmed = message.trim();
+        const limit = 320;
+        if (trimmed.length <= limit) {
+          p.textContent = trimmed;
+          return p;
+        }
+
+        const collapsed = trimmed.slice(0, limit).trim() + "…";
+        p.textContent = collapsed;
+
+        const toggle = document.createElement("button");
+        toggle.type = "button";
+        toggle.className = "post-toggle";
+        toggle.textContent = "Voir plus";
+        let expanded = false;
+
+        toggle.addEventListener("click", () => {
+          expanded = !expanded;
+          p.textContent = expanded ? trimmed : collapsed;
+          toggle.textContent = expanded ? "Voir moins" : "Voir plus";
+        });
+
+        const wrapper = document.createElement("div");
+        wrapper.appendChild(p);
+        wrapper.appendChild(toggle);
+        return wrapper;
+      }
+
+      function imageDedupKey(src) {
+        try {
+          const u = new URL(src);
+          return u.origin + u.pathname;
+        } catch {
+          return src;
+        }
+      }
+
+      function uniqueImageUrls(urls) {
+        const seen = new Set();
+        const out = [];
+        for (const s of urls || []) {
+          if (!s) continue;
+          const k = imageDedupKey(s);
+          if (seen.has(k)) continue;
+          seen.add(k);
+          out.push(s);
+        }
+        return out;
+      }
+
+      function createGallery(images) {
+        if (!images || images.length === 0) return null;
+        const list = document.createElement("ul");
+        list.className = "post-gallery" + (images.length === 1 ? " single" : "");
+        images.forEach((src, index) => {
+          const li = document.createElement("li");
+          const img = document.createElement("img");
+          img.src = src;
+          img.loading = "lazy";
+          img.alt = "Photo publication " + (index + 1);
+          li.appendChild(img);
+          list.appendChild(li);
+        });
+        return list;
+      }
+
+      function createVideos(videos) {
+        if (!videos || videos.length === 0) return null;
+        const wrapper = document.createElement("div");
+        videos.forEach((src) => {
+          const block = document.createElement("div");
+          block.className = "post-video-wrap";
+          const video = document.createElement("video");
+          video.controls = true;
+          video.preload = "metadata";
+          video.playsInline = true;
+          video.src = src;
+          block.appendChild(video);
+          wrapper.appendChild(block);
+        });
+        return wrapper;
+      }
+
+      function createPostCard(post) {
+        const card = document.createElement("article");
+        card.className = "post-card";
+        if (post.id && /^[a-zA-Z0-9_-]+$/.test(post.id)) {
+          card.id = "publication-" + post.id;
+        }
+
+        const postTime = post.created_time ? new Date(post.created_time) : null;
+        const hasValidTime = postTime && !isNaN(postTime.getTime());
+        const inRome = hasValidTime && postTime >= ROME_START;
+
+        const inner = document.createElement("div");
+        inner.className = "post-card-inner";
+
+        if (inRome) {
+          card.classList.add("post-card--rome");
+          const kicker = document.createElement("p");
+          kicker.className = "post-kicker";
+          kicker.textContent = "Depuis Rome";
+          inner.appendChild(kicker);
+        }
+
+        const date = document.createElement("time");
+        date.className = "post-date";
+        date.textContent = formatDate(post.created_time);
+        date.dateTime = post.created_time || "";
+        inner.appendChild(date);
+
+        const body = document.createElement("div");
+        body.className = "post-body";
+        const text = createTextBlock(post.message);
+        if (text) body.appendChild(text);
+
+        const hasVideos = Array.isArray(post.videos) && post.videos.length > 0;
+        const gallery = hasVideos
+          ? null
+          : createGallery(uniqueImageUrls(post.images || []));
+        if (gallery) body.appendChild(gallery);
+
+        const videos = createVideos(post.videos || []);
+        if (videos) body.appendChild(videos);
+
+        if (post.permalink_url) {
+          const actions = document.createElement("div");
+          actions.className = "post-actions";
+          const link = document.createElement("a");
+          link.className = "post-link";
+          link.href = post.permalink_url;
+          link.target = "_blank";
+          link.rel = "noreferrer";
+          link.textContent = "Ouvrir la publication";
+          actions.appendChild(link);
+          body.appendChild(actions);
+        }
+
+        inner.appendChild(body);
+        card.appendChild(inner);
+        return card;
+      }
+
+      async function init() {
+        try {
+          const response = await fetch(POSTS_URL, { cache: "no-store" });
+          if (!response.ok) throw new Error("HTTP " + response.status);
+          const data = await response.json();
+          const posts = Array.isArray(data.posts) ? data.posts : [];
+          const apiError = typeof data.error === "string" ? data.error : null;
+
+          root.innerHTML = "";
+          if (apiError) {
+            root.appendChild(createState("Impossible de récupérer les nouvelles : " + apiError));
+            return;
+          }
+          if (posts.length === 0) {
+            root.appendChild(createState("Aucune actualité disponible pour le moment."));
+            return;
+          }
+
+          posts.forEach((post) => {
+            root.appendChild(createPostCard(post));
+          });
+        } catch (error) {
+          root.innerHTML = "";
+          root.appendChild(
+            createState(
+              "Impossible de charger les nouvelles pour le moment. Rechargez la page plus tard ou contactez l’association si le problème continue."
+            )
+          );
+          console.error(error);
+        }
+      }
+
+      init();
+    })();
+  </script>
+  <div class="mobile-donate-bar">
+    <span>Soutenir Lyséa</span>
+    <a
+      href="https://lys-espoir-unis-contre-le-neuroblastome.s2.yapla.com/fr/faire-un-don/donate/un-espoir-pour-lysea-a-rome/15342"
+      class="btn btn-primary btn-small"
+      target="_blank"
+      rel="noreferrer"
+      >Faire un don</a>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

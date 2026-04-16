@@ -1,25 +1,111 @@
 const { useEffect, useState } = React;
 
+function mergeHeroPhotos(localUrls, data) {
+  const keys = new Set();
+  const out = [];
+  function keyFor(u) {
+    if (!u) return "";
+    if (u.startsWith("http://") || u.startsWith("https://")) {
+      try {
+        const p = new URL(u);
+        return p.origin + p.pathname;
+      } catch {
+        return u;
+      }
+    }
+    return u;
+  }
+  for (const u of localUrls) {
+    keys.add(keyFor(u));
+    out.push(u);
+  }
+  const posts = Array.isArray(data?.posts) ? data.posts : [];
+  for (const post of posts) {
+    if (!Array.isArray(post.images)) continue;
+    for (const url of post.images) {
+      const k = keyFor(url);
+      if (!k || keys.has(k)) continue;
+      keys.add(k);
+      out.push(url);
+    }
+  }
+  return out;
+}
+
+function LysInfoTeaser() {
+  return (
+    <section
+      id="lys-info"
+      className="section lys-info-teaser-section"
+      aria-labelledby="lys-info-teaser-title"
+    >
+      <div className="container lys-info-teaser-container">
+        <article className="lys-info-teaser" data-animate>
+          <div className="lys-info-teaser__accent" aria-hidden="true" />
+          <div className="lys-info-teaser__inner">
+            <p className="lys-info-teaser__eyebrow">
+              <span className="lys-info-teaser__flag" aria-hidden="true" />
+              Lys&apos;Info · Italie
+            </p>
+            <h2 id="lys-info-teaser-title" className="lys-info-teaser__title">
+              Dernières nouvelles
+            </h2>
+            <p className="lys-info-teaser__invite">
+              Suivez les dernières nouvelles de Lyséa depuis Rome : textes et photos du parcours sont
+              rassemblés sur <strong>Lys&apos;Info</strong>.
+            </p>
+            <a href="lys-info.html" className="lys-info-teaser__cta">
+              Accéder à Lys&apos;Info
+              <span className="lys-info-teaser__cta-arrow" aria-hidden="true">
+                →
+              </span>
+            </a>
+            <span className="lys-info-teaser__bubble" aria-hidden="true">
+              Nouveau
+            </span>
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
+
 function HeroCarousel({ photos }) {
   const [heroSlide, setHeroSlide] = useState(0);
 
   useEffect(() => {
+    setHeroSlide((prev) => Math.min(prev, Math.max(0, photos.length - 1)));
+  }, [photos.length]);
+
+  useEffect(() => {
+    if (photos.length === 0) return;
     const id = window.setInterval(() => {
       setHeroSlide((prev) => (prev + 1) % photos.length);
     }, 2600);
     return () => window.clearInterval(id);
   }, [photos.length]);
 
+  if (photos.length === 0) {
+    return null;
+  }
+
   return (
     <div className="hero-carousel" aria-label="Carrousel photos de Lyséa">
       <div className="hero-carousel-track">
         {photos.map((src, index) => (
           <figure
-            key={`hero-${src}`}
+            key={`hero-${src}-${index}`}
             className={`hero-carousel-slide ${heroSlide === index ? "is-active" : ""}`}
             aria-hidden={heroSlide !== index}
           >
-            <img src={src} alt={`Lyséa - photo ${index + 1}`} />
+            <img
+              src={src}
+              alt={`Lyséa - photo ${index + 1}`}
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "auto"}
+              decoding="async"
+              referrerPolicy="no-referrer"
+            />
           </figure>
         ))}
       </div>
@@ -40,7 +126,7 @@ function HeroCarousel({ photos }) {
 function App() {
   const DONATION_URL =
     "https://lys-espoir-unis-contre-le-neuroblastome.s2.yapla.com/fr/faire-un-don/donate/un-espoir-pour-lysea-a-rome/15342";
-  const photos = [
+  const LOCAL_HERO_PHOTOS = [
     "photo/IMG_0042.jpeg",
     "photo/IMG_5990.jpeg",
     "photo/IMG_5998.jpeg",
@@ -118,7 +204,7 @@ function App() {
     },
   ];
   const [navOpen, setNavOpen] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [heroPhotos, setHeroPhotos] = useState(LOCAL_HERO_PHOTOS);
   const [currentVideo, setCurrentVideo] = useState(0);
 
   useEffect(() => {
@@ -138,14 +224,24 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const id = window.setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % photos.length);
-    }, 3400);
-    return () => window.clearInterval(id);
-  }, [photos.length]);
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("data/facebook-posts.json", { cache: "no-store" });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (cancelled || typeof data.error === "string") return;
+        const merged = mergeHeroPhotos(LOCAL_HERO_PHOTOS, data);
+        if (!cancelled && merged.length) setHeroPhotos(merged);
+      } catch {
+        /* photos locales uniquement */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % photos.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + photos.length) % photos.length);
   const nextVideo = () => setCurrentVideo((prev) => (prev + 1) % videos.length);
   const prevVideo = () => setCurrentVideo((prev) => (prev - 1 + videos.length) % videos.length);
   const closeNav = () => setNavOpen(false);
@@ -168,9 +264,8 @@ function App() {
           <nav className={`main-nav ${navOpen ? "show" : ""}`} aria-label="Navigation principale">
             <a href="#hero" onClick={closeNav}>Accueil</a>
             <a href="#histoire" onClick={closeNav}>Le combat de Lyséa</a>
+            <a href="lys-info.html" className="italy-tab" onClick={closeNav}>Lys&apos;Info</a>
             <a href="boutique.html" onClick={closeNav}>Boutique</a>
-            <a href={DONATION_URL} target="_blank" rel="noreferrer" onClick={closeNav}>Faire un don</a>
-            <a href="politique-mentions.html" onClick={closeNav}>Politique/Mentions</a>
             <a href="#contact" onClick={closeNav}>Contact</a>
           </nav>
           <a href={DONATION_URL} className="btn btn-primary header-donate" target="_blank" rel="noreferrer">Faire un don</a>
@@ -187,27 +282,19 @@ function App() {
                 <a href={DONATION_URL} className="btn btn-primary" target="_blank" rel="noreferrer">Faire un don</a>
                 <a href="#histoire" className="btn btn-line">Découvrir son histoire</a>
               </div>
+              <p className="hero-reassurance">Plateforme sécurisée · Reçu fiscal disponible</p>
               <blockquote>
                 "Chaque geste compte. Chaque partage nous aide à continuer."
                 <cite>Mélanie & Jonathan</cite>
               </blockquote>
             </div>
             <div className="hero-media" data-animate>
-              <HeroCarousel photos={photos} />
+              <HeroCarousel photos={heroPhotos} />
             </div>
           </div>
         </section>
 
-        <section id="lys-info" className="section lys-info">
-          <div className="container">
-            <article className="lys-info-card" data-animate>
-              <p className="lys-info-badge">LYS&apos;INFO</p>
-              <h3>Dernière info</h3>
-              <p>Départ prévu : dimanche 12 avril 2026 pour la greffe de CAR-T en Italie.</p>
-              <p className="lys-info-closing">Nous vous donnerons des nouvelles régulièrement.</p>
-            </article>
-          </div>
-        </section>
+        <LysInfoTeaser />
 
         <section id="identite" className="identity section">
           <div className="container identity-card" data-animate>
@@ -370,6 +457,7 @@ function App() {
             <h4>Liens utiles</h4>
             <p><a href="#hero">Accueil</a></p>
             <p><a href="#histoire">Le combat de Lyséa</a></p>
+            <p><a href="lys-info.html">Lys&apos;Info</a></p>
             <p><a href="boutique.html">Boutique</a></p>
             <p><a href="politique-mentions.html">Politique/Mentions</a></p>
             <div className="social-links">

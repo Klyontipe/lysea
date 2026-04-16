@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Lys’Espoir - Politique et mentions</title>
   <meta
     name="description"
@@ -34,6 +34,8 @@
     .legal-card li {
       color: #5d5064;
       line-height: 1.6;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .legal-card h2,
@@ -49,9 +51,13 @@
         <img src="logo.png" alt="Logo LYS'ESPOIR" />
         <span><small>Association de soutien à Lyséa</small></span>
       </a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Ouvrir le menu">
+        <span></span><span></span>
+      </button>
       <nav class="main-nav" aria-label="Navigation principale">
         <a href="index.html#hero">Accueil</a>
         <a href="index.html#histoire">Le combat de Lyséa</a>
+        <a href="lys-info.html" class="italy-tab">Lys'Info</a>
         <a href="boutique.html">Boutique</a>
         <a href="politique-mentions.html" aria-current="page">Politique/Mentions</a>
       </nav>
@@ -222,5 +228,16 @@
       <p>facebook<br />Propulsé par klyon </p>
     </section>
   </main>
+
+  <div class="mobile-donate-bar">
+    <span>Soutenir Lyséa</span>
+    <a
+      href="https://lys-espoir-unis-contre-le-neuroblastome.s2.yapla.com/fr/faire-un-don/donate/un-espoir-pour-lysea-a-rome/15342"
+      class="btn btn-primary btn-small"
+      target="_blank"
+      rel="noreferrer"
+      >Faire un don</a>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
