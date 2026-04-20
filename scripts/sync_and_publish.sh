@@ -6,10 +6,14 @@ cd "$ROOT_DIR"
 
 TARGET_FILE="data/facebook-posts.json"
 CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+SCRIPT_PATH="scripts/sync_and_publish.sh"
 
 collect_other_changes() {
   local target="$1"
-  mapfile -t changed_files < <(
+  local changed_files=()
+  while IFS= read -r line; do
+    changed_files+=("$line")
+  done < <(
     {
       git diff --name-only
       git diff --cached --name-only
@@ -21,10 +25,14 @@ collect_other_changes() {
   for file in "${changed_files[@]}"; do
     [[ -z "$file" ]] && continue
     [[ "$file" == "$target" ]] && continue
+    [[ "$file" == ".env" ]] && continue
+    [[ "$file" == "$SCRIPT_PATH" ]] && continue
     other+=("$file")
   done
 
-  printf "%s\n" "${other[@]}"
+  if ((${#other[@]})); then
+    printf "%s\n" "${other[@]}"
+  fi
 }
 
 echo "0/5 - Verification de securite..."
@@ -46,7 +54,13 @@ if git show-ref --quiet --verify "refs/remotes/origin/$CURRENT_BRANCH"; then
 fi
 
 echo "1/5 - Synchronisation Facebook..."
-python3 scripts/sync_facebook.py
+sync_output="$(python3 scripts/sync_facebook.py 2>&1 || true)"
+echo "$sync_output"
+
+if [[ "$sync_output" == *"ERREUR:"* ]]; then
+  echo "Arret: la synchronisation Facebook a echoue."
+  exit 1
+fi
 
 if git diff --quiet -- "$TARGET_FILE"; then
   echo "2/5 - Aucun changement detecte dans $TARGET_FILE"
