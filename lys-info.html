@@ -438,6 +438,21 @@
       max-height: min(68vh, 480px);
     }
 
+    .post-video-fallback {
+      margin: 0.45rem 0 0;
+      padding: 0.85rem 0.95rem;
+      border-radius: 12px;
+      border: 1px dashed rgba(31, 79, 138, 0.35);
+      background: rgba(31, 79, 138, 0.06);
+      color: #314354;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .post-video-fallback p {
+      margin: 0 0 0.45rem;
+    }
+
     @media (max-width: 760px) {
       .rome-rail {
         width: min(3.9rem, 11vw);
@@ -507,7 +522,6 @@
         <a href="index.html#hero">Accueil</a>
         <a href="index.html#histoire">Le combat de Lyséa</a>
         <a href="lys-info.html" class="italy-tab" aria-current="page">Lys'Info</a>
-        <a href="boutique.html">Boutique</a>
         <a href="politique-mentions.html">Politique/Mentions</a>
       </nav>
       <a href="index.html#don" class="btn btn-primary header-donate">Faire un don</a>
@@ -720,10 +734,38 @@
         return list;
       }
 
-      function createVideos(videos) {
+      function isTemporaryFacebookVideoUrl(src) {
+        try {
+          const parsed = new URL(src);
+          return /fbcdn\.net$/i.test(parsed.hostname);
+        } catch {
+          return false;
+        }
+      }
+
+      function createVideos(videos, permalinkUrl) {
         if (!videos || videos.length === 0) return null;
         const wrapper = document.createElement("div");
         videos.forEach((src) => {
+          if (isTemporaryFacebookVideoUrl(src)) {
+            const fallback = document.createElement("div");
+            fallback.className = "post-video-fallback";
+            const text = document.createElement("p");
+            text.textContent = "La vidéo Facebook n’est plus disponible en lecture directe.";
+            fallback.appendChild(text);
+            if (permalinkUrl) {
+              const link = document.createElement("a");
+              link.className = "post-link";
+              link.href = permalinkUrl;
+              link.target = "_blank";
+              link.rel = "noreferrer";
+              link.textContent = "Voir la vidéo sur Facebook";
+              fallback.appendChild(link);
+            }
+            wrapper.appendChild(fallback);
+            return;
+          }
+
           const block = document.createElement("div");
           block.className = "post-video-wrap";
           const video = document.createElement("video");
@@ -776,7 +818,7 @@
           : createGallery(uniqueImageUrls(post.images || []));
         if (gallery) body.appendChild(gallery);
 
-        const videos = createVideos(post.videos || []);
+        const videos = createVideos(post.videos || [], post.permalink_url || "");
         if (videos) body.appendChild(videos);
 
         if (post.permalink_url) {

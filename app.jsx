@@ -265,7 +265,6 @@ function App() {
             <a href="#hero" onClick={closeNav}>Accueil</a>
             <a href="#histoire" onClick={closeNav}>Le combat de Lyséa</a>
             <a href="lys-info.html" className="italy-tab" onClick={closeNav}>Lys&apos;Info</a>
-            <a href="boutique.html" onClick={closeNav}>Boutique</a>
             <a href="#contact" onClick={closeNav}>Contact</a>
           </nav>
           <a href={DONATION_URL} className="btn btn-primary header-donate" target="_blank" rel="noreferrer">Faire un don</a>
@@ -458,7 +457,6 @@ function App() {
             <p><a href="#hero">Accueil</a></p>
             <p><a href="#histoire">Le combat de Lyséa</a></p>
             <p><a href="lys-info.html">Lys&apos;Info</a></p>
-            <p><a href="boutique.html">Boutique</a></p>
             <p><a href="politique-mentions.html">Politique/Mentions</a></p>
             <div className="social-links">
               <a href={FACEBOOK_URL} target="_blank" rel="noreferrer" aria-label="Facebook Lys'Espoir">
