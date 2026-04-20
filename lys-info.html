@@ -734,44 +734,43 @@
         return list;
       }
 
-      function isTemporaryFacebookVideoUrl(src) {
-        try {
-          const parsed = new URL(src);
-          return /fbcdn\.net$/i.test(parsed.hostname);
-        } catch {
-          return false;
-        }
-      }
-
       function createVideos(videos, permalinkUrl) {
         if (!videos || videos.length === 0) return null;
         const wrapper = document.createElement("div");
-        videos.forEach((src) => {
-          if (isTemporaryFacebookVideoUrl(src)) {
-            const fallback = document.createElement("div");
-            fallback.className = "post-video-fallback";
-            const text = document.createElement("p");
-            text.textContent = "La vidéo Facebook n’est plus disponible en lecture directe.";
-            fallback.appendChild(text);
-            if (permalinkUrl) {
-              const link = document.createElement("a");
-              link.className = "post-link";
-              link.href = permalinkUrl;
-              link.target = "_blank";
-              link.rel = "noreferrer";
-              link.textContent = "Voir la vidéo sur Facebook";
-              fallback.appendChild(link);
-            }
-            wrapper.appendChild(fallback);
-            return;
-          }
 
+        function createVideoFallback() {
+          const fallback = document.createElement("div");
+          fallback.className = "post-video-fallback";
+          const text = document.createElement("p");
+          text.textContent = "La vidéo Facebook n’est plus disponible en lecture directe.";
+          fallback.appendChild(text);
+          if (permalinkUrl) {
+            const link = document.createElement("a");
+            link.className = "post-link";
+            link.href = permalinkUrl;
+            link.target = "_blank";
+            link.rel = "noreferrer";
+            link.textContent = "Voir la vidéo sur Facebook";
+            fallback.appendChild(link);
+          }
+          return fallback;
+        }
+
+        videos.forEach((src) => {
           const block = document.createElement("div");
           block.className = "post-video-wrap";
           const video = document.createElement("video");
           video.controls = true;
           video.preload = "metadata";
           video.playsInline = true;
+          video.addEventListener(
+            "error",
+            () => {
+              const fallback = createVideoFallback();
+              block.replaceWith(fallback);
+            },
+            { once: true }
+          );
           video.src = src;
           block.appendChild(video);
           wrapper.appendChild(block);
