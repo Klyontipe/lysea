@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Lys’Espoir - Événement</title>
+  <meta
+    name="description"
+    content="Événement solidaire RASSO US CARS & BIKES – NORMANDY au profit de l’Association Lys’Espoir."
+  />
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .event-page {
+      padding: 2rem 0 3rem;
+      background: linear-gradient(165deg, #f8eef5, #f2e7ef);
+      min-height: 100dvh;
+    }
+
+    .event-card {
+      background: #fff;
+      border: 1px solid #e9d8e4;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(36, 22, 46, 0.1);
+      overflow: hidden;
+    }
+
+    .event-media {
+      margin: 0;
+      border-bottom: 1px solid #f0e4ec;
+      background: #1b1130;
+    }
+
+    .event-media img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: min(60vh, 520px);
+    }
+
+    .event-content {
+      padding: 1.25rem 1.25rem 1.4rem;
+    }
+
+    .event-content h1 {
+      margin-bottom: 0.9rem;
+    }
+
+    .event-content p {
+      color: #4f4358;
+      line-height: 1.6;
+      margin: 0 0 0.7rem;
+    }
+
+    .event-content ul {
+      margin: 0.3rem 0 0.9rem;
+      padding-left: 1.1rem;
+      color: #4f4358;
+      line-height: 1.6;
+    }
+
+    .event-actions {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    @media (max-width: 760px) {
+      .event-content {
+        padding: 1rem 0.95rem 1.1rem;
+      }
+
+      .event-media img {
+        max-height: min(44vh, 320px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-shell">
+      <a href="index.html#hero" class="brand">
+        <img src="logo.png" alt="Logo Lys’Espoir" />
+        <span><small>Association de soutien à Lyséa</small></span>
+      </a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-label="Ouvrir le menu">
+        <span></span><span></span>
+      </button>
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="index.html#hero">Accueil</a>
+        <a href="index.html#histoire">Le combat de Lyséa</a>
+        <a href="lys-info.html" class="italy-tab">Lys'Info</a>
+        <a href="evenement.html" aria-current="page">Événement</a>
+        <a href="politique-mentions.html">Politique/Mentions</a>
+      </nav>
+      <a href="index.html#don" class="btn btn-primary header-donate">Faire un don</a>
+    </div>
+  </header>
+
+  <main class="event-page">
+    <section class="container event-card" aria-labelledby="evenement-title">
+      <figure class="event-media">
+        <img src="evenement%201%20.png" alt="Affiche RASSO US CARS & BIKES – NORMANDY" />
+      </figure>
+      <article class="event-content">
+        <p class="kicker">ÉVÉNEMENT</p>
+        <h1 id="evenement-title">🔥 RASSO US CARS & BIKES – NORMANDY 🔥</h1>
+        <p>
+          Rendez-vous le dimanche 26 avril à Criquetot-sur-Ouville pour un événement exceptionnel dédié
+          aux passionnés de belles mécaniques américaines 🇺🇸
+        </p>
+        <p><strong>ÉVÈNEMENT SOLIDAIRE 🎗️</strong><br />Tous les bénéfices seront reversés à l’Association Lys’Espoir « Unis contre le Neuroblastome » 💪</p>
+        <ul>
+          <li><strong>🚗 US Cars & Bikes :</strong> Admirez des véhicules uniques et partagez un moment convivial entre passionnés.</li>
+          <li><strong>🕙 Nouveaux horaires :</strong> 10h00 – 15h00</li>
+          <li><strong>🎟️ Baptêmes en véhicules US :</strong> 5€ le tour – accessible à tous les âges !</li>
+          <li><strong>🍔 Food truck sur place</strong> pour régaler petits et grands.</li>
+        </ul>
+        <p>
+          👉 Venez nombreux pour partager votre passion tout en contribuant à une belle cause !
+        </p>
+        <p>Nous comptons sur vous 🫶✨🌈</p>
+        <div class="event-actions">
+          <a class="btn btn-primary" href="https://www.facebook.com/share/v/18MLffHxQg/?mibextid=wwXIfr" target="_blank" rel="noreferrer">Voir la publication Facebook</a>
+          <a class="btn btn-line" href="index.html#hero">Retour à l’accueil</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <div class="mobile-donate-bar">
+    <span>Soutenir Lyséa</span>
+    <a
+      href="https://lys-espoir-unis-contre-le-neuroblastome.s2.yapla.com/fr/faire-un-don/donate/un-espoir-pour-lysea-a-rome/15342"
+      class="btn btn-primary btn-small"
+      target="_blank"
+      rel="noreferrer"
+      >Faire un don</a>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
