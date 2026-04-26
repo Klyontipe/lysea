@@ -205,6 +205,21 @@ a {
     background: rgba(31, 79, 138, 0.18);
     color: #143d6e;
   }
+
+  .main-nav .impact-tab {
+    font-weight: 800;
+    background: linear-gradient(90deg, #75d9f8 0%, #ef4ba9 35%, #ff9740 68%, #ffd64a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .main-nav .impact-tab:hover {
+    background: linear-gradient(90deg, #57cce8 0%, #de2c95 35%, #f28122 68%, #f3bf25 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
 
 .btn {
@@ -1045,6 +1060,47 @@ blockquote cite {
   margin: 0.7rem 0 0;
 }
 
+.impact-story {
+  background: linear-gradient(180deg, #fff6fb, #fff);
+}
+
+.impact-story-card {
+  background: #fff;
+  border: 1px solid #ead9e4;
+  border-radius: 18px;
+  box-shadow: 0 12px 28px rgba(34, 17, 44, 0.08);
+  padding: 1.35rem 1.25rem;
+}
+
+.impact-story-title {
+  margin-bottom: 0.9rem;
+  background: linear-gradient(90deg, #75d9f8 0%, #ef4ba9 35%, #ff9740 68%, #ffd64a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.impact-story-card p {
+  color: #4e4257;
+  line-height: 1.65;
+  margin: 0 0 0.75rem;
+}
+
+.impact-story-card h3 {
+  margin: 0.7rem 0 0.45rem;
+}
+
+.impact-story-icons {
+  font-size: 1.05rem;
+  letter-spacing: 0.14em;
+}
+
+.impact-story-divider {
+  color: #aa8f9d !important;
+  text-align: center;
+  margin: 0.35rem 0 0.55rem !important;
+}
+
 .impact-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1578,7 +1634,8 @@ blockquote cite {
 
   .don-box,
   .media-card,
-  .thanks-card {
+  .thanks-card,
+  .impact-story-card {
     padding: 1rem;
   }
 
@@ -1647,6 +1704,11 @@ blockquote cite {
 
   .main-nav .italy-tab {
     border-radius: 10px;
+  }
+
+  .main-nav .impact-tab {
+    font-weight: 800;
+    color: #ef4ba9;
   }
 
   .main-nav a:hover,

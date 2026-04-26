@@ -109,16 +109,6 @@ function HeroCarousel({ photos }) {
           </figure>
         ))}
       </div>
-      <div className="hero-carousel-dots" role="tablist" aria-label="Choisir une photo">
-        {photos.map((_, index) => (
-          <button
-            key={`hero-dot-${index}`}
-            className={heroSlide === index ? "is-active" : ""}
-            onClick={() => setHeroSlide(index)}
-            aria-label={`Afficher la photo ${index + 1}`}
-          />
-        ))}
-      </div>
     </div>
   );
 }
@@ -264,12 +254,12 @@ function App() {
           <nav className={`main-nav ${navOpen ? "show" : ""}`} aria-label="Navigation principale">
             <a href="#hero" onClick={closeNav}>Accueil</a>
             <a href="#histoire" onClick={closeNav}>Le combat de Lyséa</a>
+            <a href="#impact-dons" className="impact-tab" onClick={closeNav}>L’impact de vos dons</a>
             <a href="lys-info.html" className="italy-tab" onClick={closeNav}>Lys&apos;Info</a>
             <a href="evenement.html" className="event-tab" onClick={closeNav}>
               <span>Événement</span>
               <span className="event-tab__badge" aria-hidden="true">Nouveau</span>
             </a>
-            <a href="#contact" onClick={closeNav}>Contact</a>
           </nav>
           <a href={DONATION_URL} className="btn btn-primary header-donate" target="_blank" rel="noreferrer">Faire un don</a>
         </div>
@@ -384,6 +374,65 @@ function App() {
               </a>
               <p className="secure-note">Merci pour votre soutien et votre confiance.</p>
             </aside>
+          </div>
+        </section>
+
+        <section id="impact-dons" className="section impact-story">
+          <div className="container">
+            <article className="impact-story-card" data-animate>
+              <p className="impact-story-icons" aria-hidden="true">🩵🩷🧡💛</p>
+              <h2 className="impact-story-title">L’impact de vos dons</h2>
+              <p><strong>GRÂCE À VOUS ;</strong></p>
+              <p>Chaque geste compte ✨<br />Chaque don fait une réelle différence 🙏</p>
+              <p>
+                Grâce à votre générosité, l’association Lys’Espoir accompagne Lyséa et sa famille dans leur
+                combat contre le neuroblastome 🧡, en prenant en charge des frais essentiels tels que
+                l’hébergement 🏠, les transports 🚗 et certains matériels médicaux non remboursés 🩺, nécessaires
+                à son traitement à Rome, en Italie 🇮🇹.
+              </p>
+
+              <h3>🌟 Pourquoi votre aide est essentielle</h3>
+              <p>
+                Les dépenses liées aux traitements représentent un poids immense pour de nombreuses familles
+                touchées par le cancer pédiatrique 💔. Derrière chaque histoire, il y a des enfants comme Lyséa,
+                mais aussi beaucoup d’autres enfants qui se battent chaque jour avec courage 💪, ainsi que leurs
+                parents, souvent épuisés moralement, physiquement et financièrement 😔.
+              </p>
+              <p>
+                Votre soutien permettra non seulement d’alléger ces contraintes, mais aussi d’offrir à ces familles
+                la possibilité de se concentrer sur l’essentiel : la santé et le bien-être de leurs enfants 🧸💖.
+              </p>
+
+              <p className="impact-story-divider">⸻</p>
+
+              <h3>🔬 Soutenir aussi la recherche 🧪</h3>
+              <p>
+                Au-delà de l’aide directe aux familles, chaque geste compte pour faire avancer la recherche. C’est
+                elle qui permettra de développer des traitements plus efficaces, moins lourds, et d’espérer un avenir
+                où chaque enfant pourra enfin guérir et vivre une vie la plus normale possible 🌈✨.
+              </p>
+
+              <p className="impact-story-divider">⸻</p>
+
+              <h3>🤝 Une transparence totale 🔍</h3>
+              <p>
+                Nous nous engageons à utiliser chaque don de manière responsable et transparente, en les consacrant
+                directement aux besoins des enfants malades, de leurs familles, et au soutien de la recherche contre
+                les cancers pédiatriques 📊💙.
+              </p>
+
+              <p className="impact-story-divider">⸻</p>
+
+              <h3>💖 Merci 🙏</h3>
+              <p>
+                Merci du fond du cœur pour votre mobilisation, votre confiance et votre solidarité 🤍.
+              </p>
+              <p>
+                Ensemble, continuons à faire grandir l’espoir pour tous ces enfants et leurs familles
+                🌟👨‍👩‍👧‍👦
+              </p>
+              <p className="impact-story-icons" aria-hidden="true">🩵🩷🧡💛</p>
+            </article>
           </div>
         </section>
 
