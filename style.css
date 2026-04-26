@@ -1074,6 +1074,9 @@ blockquote cite {
 
 .impact-story-title {
   margin-bottom: 0.9rem;
+  font-family: "Manrope", system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.01em;
   background: linear-gradient(90deg, #75d9f8 0%, #ef4ba9 35%, #ff9740 68%, #ffd64a 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -1088,6 +1091,10 @@ blockquote cite {
 
 .impact-story-card h3 {
   margin: 0.7rem 0 0.45rem;
+  font-family: "Manrope", system-ui, sans-serif;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #3f344a;
 }
 
 .impact-story-icons {
