@@ -243,7 +243,7 @@ function App() {
           <a href="#hero" className="brand">
             <img src="logo.png" alt="Logo Lys’Espoir" />
             <span>
-              <small>Association de soutien à Lyséa</small>
+              <small>Association de soutien pour les enfants atteints de cancers pédiatriques</small>
             </span>
           </a>
 

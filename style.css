@@ -138,7 +138,7 @@ a {
   letter-spacing: 0.03em;
   line-height: 1.25;
   display: block;
-  max-width: 17rem;
+  max-width: 26rem;
   padding-left: 0.15rem;
   transform-origin: left center;
 }
@@ -1748,7 +1748,7 @@ blockquote cite {
     animation: none;
     font-size: 0.68rem;
     font-weight: 600;
-    max-width: min(12.5rem, 48vw);
+    max-width: min(14.5rem, 56vw);
     line-height: 1.2;
     white-space: normal;
     border-right: 0;
