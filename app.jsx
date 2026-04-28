@@ -352,7 +352,7 @@ function App() {
               <h2>Faire un don pour Lyséa</h2>
               <p>
                 Chaque don aide Lyséa dans son parcours de soins à Rome et soutient aussi
-                d’autres familles confrontées au neuroblastome.
+                d’autres familles confrontées au « CANCER PÉDIATRIQUE ».
               </p>
               <div className="tax-cards">
                 <article><strong>50 €</strong><span>coût réel 17 €</span></article>
