@@ -551,6 +551,96 @@ blockquote cite {
   background: linear-gradient(135deg, var(--pink), var(--gold));
 }
 
+.flyers-section {
+  padding-top: 1.8rem;
+  padding-bottom: 2.4rem;
+  background: linear-gradient(180deg, rgba(255, 248, 252, 0.95), rgba(255, 255, 255, 0.98));
+}
+
+.flyers-grid {
+  margin-top: 0.2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.95rem;
+}
+
+.flyer-card {
+  background: #fff;
+  border: 1px solid #e8dbe4;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(34, 17, 44, 0.08);
+  overflow: hidden;
+}
+
+.flyer-link {
+  display: block;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.flyer-link img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+}
+
+.flyer-actions {
+  padding: 0.55rem 0.7rem 0.7rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.flyer-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(18, 10, 24, 0.72);
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.flyer-modal__content {
+  width: min(820px, 100%);
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 14px;
+  overflow: auto;
+  position: relative;
+  padding: 0.8rem 0.8rem 0.95rem;
+}
+
+.flyer-modal__content img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+}
+
+.flyer-modal__close {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(20, 12, 28, 0.88);
+  color: #fff;
+  font-size: 0.96rem;
+  cursor: pointer;
+}
+
+.flyer-modal__actions {
+  margin-top: 0.7rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .section {
   padding: 4.4rem 0;
 }
@@ -1501,6 +1591,10 @@ blockquote cite {
   .story-gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .flyers-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 900px) {
@@ -1585,6 +1679,16 @@ blockquote cite {
 
   .hero-carousel-slide img {
     border-radius: 12px;
+  }
+
+  .flyers-section {
+    padding-top: 2.2rem;
+    padding-bottom: 1.8rem;
+  }
+
+  .flyers-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 
   .kicker {

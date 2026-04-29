@@ -32,44 +32,6 @@ function mergeHeroPhotos(localUrls, data) {
   return out;
 }
 
-function LysInfoTeaser() {
-  return (
-    <section
-      id="lys-info"
-      className="section lys-info-teaser-section"
-      aria-labelledby="lys-info-teaser-title"
-    >
-      <div className="container lys-info-teaser-container">
-        <article className="lys-info-teaser" data-animate>
-          <div className="lys-info-teaser__accent" aria-hidden="true" />
-          <div className="lys-info-teaser__inner">
-            <p className="lys-info-teaser__eyebrow">
-              <span className="lys-info-teaser__flag" aria-hidden="true" />
-              Lys&apos;Info · Italie
-            </p>
-            <h2 id="lys-info-teaser-title" className="lys-info-teaser__title">
-              Dernières nouvelles
-            </h2>
-            <p className="lys-info-teaser__invite">
-              Suivez les dernières nouvelles de Lyséa depuis Rome : textes et photos du parcours sont
-              rassemblés sur <strong>Lys&apos;Info</strong>.
-            </p>
-            <a href="lys-info.html" className="lys-info-teaser__cta">
-              Accéder à Lys&apos;Info
-              <span className="lys-info-teaser__cta-arrow" aria-hidden="true">
-                →
-              </span>
-            </a>
-            <span className="lys-info-teaser__bubble" aria-hidden="true">
-              Nouveau · Événement
-            </span>
-          </div>
-        </article>
-      </div>
-    </section>
-  );
-}
-
 function HeroCarousel({ photos }) {
   const [heroSlide, setHeroSlide] = useState(0);
 
@@ -131,6 +93,23 @@ function App() {
   const FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61587588269464";
   const INSTAGRAM_URL = "https://www.instagram.com/lys.espoir";
   const KLYON_URL = "https://klyon.fr";
+  const FLYERS = [
+    {
+      src: "flyer.png",
+      title: "Flyer Événement",
+      subtitle: "Visuel principal",
+    },
+    {
+      src: "flyer2.png",
+      title: "Flyer solidaire",
+      subtitle: "Version alternative",
+    },
+    {
+      src: "flyer3.png",
+      title: "Flyer partage",
+      subtitle: "À diffuser autour de vous",
+    },
+  ];
   const videos = [
     {
       title: "Premier combat de Lyséa",
@@ -196,6 +175,7 @@ function App() {
   const [navOpen, setNavOpen] = useState(false);
   const [heroPhotos, setHeroPhotos] = useState(LOCAL_HERO_PHOTOS);
   const [currentVideo, setCurrentVideo] = useState(0);
+  const [activeFlyer, setActiveFlyer] = useState(null);
 
   useEffect(() => {
     const items = document.querySelectorAll("[data-animate]");
@@ -287,7 +267,27 @@ function App() {
           </div>
         </section>
 
-        <LysInfoTeaser />
+        <section id="flyers" className="section flyers-section">
+          <div className="container">
+            <div className="flyers-grid">
+              {FLYERS.map((flyer, index) => (
+                <article className="flyer-card" data-animate key={flyer.src}>
+                  <button
+                    type="button"
+                    className="flyer-link"
+                    onClick={() => setActiveFlyer(flyer)}
+                    aria-label={`Ouvrir ${flyer.title}`}
+                  >
+                    <img src={flyer.src} alt={flyer.title} loading={index === 0 ? "eager" : "lazy"} />
+                  </button>
+                  <div className="flyer-actions">
+                    <a href={flyer.src} download className="btn btn-line btn-small">Télécharger</a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <section id="identite" className="identity section">
           <div className="container identity-card" data-animate>
@@ -536,6 +536,18 @@ function App() {
         <span>Soutenir Lyséa</span>
         <a href={DONATION_URL} className="btn btn-primary btn-small" target="_blank" rel="noreferrer">Faire un don</a>
       </div>
+
+      {activeFlyer ? (
+        <div className="flyer-modal" role="dialog" aria-modal="true" aria-label={activeFlyer.title} onClick={() => setActiveFlyer(null)}>
+          <div className="flyer-modal__content" onClick={(event) => event.stopPropagation()}>
+            <button type="button" className="flyer-modal__close" onClick={() => setActiveFlyer(null)} aria-label="Fermer">✕</button>
+            <img src={activeFlyer.src} alt={activeFlyer.title} />
+            <div className="flyer-modal__actions">
+              <a href={activeFlyer.src} download className="btn btn-primary btn-small">Télécharger ce flyer</a>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 }
