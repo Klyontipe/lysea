@@ -453,6 +453,73 @@
       margin: 0 0 0.45rem;
     }
 
+    .flyer-info-card {
+      background: #fff;
+      border: 1px solid rgba(201, 122, 158, 0.35);
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(42, 31, 50, 0.08);
+      padding: 1.15rem 1.15rem 1.2rem;
+      margin-top: -0.8rem;
+    }
+
+    .flyer-info-card p {
+      margin: 0 0 0.7rem;
+      color: #4a3f52;
+      line-height: 1.58;
+    }
+
+    .flyer-info-actions {
+      margin-top: 0.65rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .flyer-mini-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background: rgba(20, 12, 28, 0.7);
+      display: none;
+      place-items: center;
+      padding: 0.9rem;
+    }
+
+    .flyer-mini-modal.show {
+      display: grid;
+    }
+
+    .flyer-mini-modal__content {
+      width: min(680px, 100%);
+      max-height: 90vh;
+      background: #fff;
+      border-radius: 14px;
+      overflow: auto;
+      position: relative;
+      padding: 0.7rem 0.7rem 0.85rem;
+    }
+
+    .flyer-mini-modal__content img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .flyer-mini-modal__close {
+      position: absolute;
+      top: 0.35rem;
+      right: 0.35rem;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(20, 12, 28, 0.88);
+      color: #fff;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
     @media (max-width: 760px) {
       .rome-rail {
         width: min(3.9rem, 11vw);
@@ -574,6 +641,33 @@
           <span class="info-lead-ita" lang="it">Insieme, andiamo avanti.</span>
         </p>
       </article>
+      <article class="flyer-info-card">
+        <p>📣 Notre FLYER est désormais disponible au téléchargement ! 💖🎗️</p>
+        <p>
+          Aujourd’hui, nous avons besoin de vous pour nous aider à faire connaître Lys’Espoir au plus grand nombre. 🙏
+        </p>
+        <p>
+          👉🏻 partageant notre Flyer autour de vous (sur les réseaux sociaux, par message, par mail…)
+        </p>
+        <p>
+          👉🏻 l’imprimant et en demandant à vos commerçants, écoles, entreprises ou associations locales de pouvoir l’afficher.
+        </p>
+        <p>
+          Chaque partage compte. 💫 Plus notre association sera connue, plus nous pourrons nous développer afin d’aider davantage
+          d’enfants et de familles touchés par le cancer pédiatrique ainsi que la recherche🎗️
+        </p>
+        <p>
+          Ensemble, nous pouvons faire grandir cette belle chaîne de solidarité. 🫶
+        </p>
+        <p>
+          Merci du fond du cœur pour votre soutien, vos partages et votre bienveillance. 🌈✨
+        </p>
+        <p>🩷💛🧡🩵</p>
+        <div class="flyer-info-actions">
+          <button type="button" class="btn btn-primary btn-small" id="open-flyer-mini">Voir l’affiche</button>
+          <a href="flyerlysinfo.png" download class="btn btn-line btn-small">Télécharger</a>
+        </div>
+      </article>
       <div id="posts-root" class="post-stream">
         <article class="state-card">Chargement des actualités...</article>
       </div>
@@ -643,6 +737,30 @@
       }
 
       updateRomeProgress();
+
+      const flyerOpenButton = document.getElementById("open-flyer-mini");
+      let flyerModalBound = false;
+
+      function bindFlyerMiniModal() {
+        if (flyerModalBound) return;
+        const flyerMiniModal = document.getElementById("flyer-mini-modal");
+        const flyerCloseButton = document.getElementById("close-flyer-mini");
+        if (!flyerMiniModal || !flyerCloseButton) return;
+
+        flyerCloseButton.addEventListener("click", () => flyerMiniModal.classList.remove("show"));
+        flyerMiniModal.addEventListener("click", (event) => {
+          if (event.target === flyerMiniModal) flyerMiniModal.classList.remove("show");
+        });
+        flyerModalBound = true;
+      }
+
+      if (flyerOpenButton) {
+        flyerOpenButton.addEventListener("click", () => {
+          bindFlyerMiniModal();
+          const flyerMiniModal = document.getElementById("flyer-mini-modal");
+          if (flyerMiniModal) flyerMiniModal.classList.add("show");
+        });
+      }
 
       const POSTS_URL = "data/facebook-posts.json";
       const root = document.getElementById("posts-root");
@@ -874,6 +992,12 @@
       init();
     })();
   </script>
+  <div class="flyer-mini-modal" id="flyer-mini-modal" aria-hidden="true">
+    <div class="flyer-mini-modal__content">
+      <button type="button" class="flyer-mini-modal__close" id="close-flyer-mini" aria-label="Fermer">✕</button>
+      <img src="flyerlysinfo.png" alt="Flyer Lys'Info à partager" />
+    </div>
+  </div>
   <div class="mobile-donate-bar">
     <span>Soutenir Lyséa</span>
     <a
