@@ -78,6 +78,7 @@ function HeroCarousel({ photos }) {
 function App() {
   const DONATION_URL =
     "https://lys-espoir-unis-contre-le-neuroblastome.s2.yapla.com/fr/faire-un-don/donate/un-espoir-pour-lysea-a-rome/15342";
+  const SHARE_INFO_FLYER_SRC = "flyerlysinfo.png";
   const LOCAL_HERO_PHOTOS = [
     "photo/IMG_0042.jpeg",
     "photo/IMG_5990.jpeg",
@@ -113,6 +114,11 @@ function App() {
       src: "flyer4.png",
       title: "Flyer 4ème don",
       subtitle: "Vie & Espoir CHU de Rouen",
+    },
+    {
+      src: "flyer5.jpeg",
+      title: "Flyer solidarité",
+      subtitle: "À diffuser pour faire connaître Lys’Espoir",
     },
   ];
   const videos = [
@@ -268,6 +274,56 @@ function App() {
             </div>
             <div className="hero-media" data-animate>
               <HeroCarousel photos={heroPhotos} />
+            </div>
+          </div>
+          <div className="share-banner" role="region" aria-labelledby="share-callout-title">
+            <div className="container share-banner__wrap">
+              <aside className="share-banner__aside">
+                <div className="share-banner__copy">
+                  <p className="share-banner__eyebrow">Aidez-nous à faire connaître Lys’Espoir</p>
+                  <h2 id="share-callout-title" className="share-banner__title">
+                    On a besoin de vous
+                  </h2>
+                  <p className="share-banner__text">
+                    Chaque partage fait bouger les choses — pour Lyséa, pour sa famille et pour toutes celles et ceux qui
+                    affrontent le cancer pédiatrique.
+                  </p>
+                  <p className="share-banner__text share-banner__text--emphasis">
+                    Ensemble, diffusez notre affiche : réseaux, messages, commerces, écoles, associations… Merci pour votre
+                    relais.
+                  </p>
+                  <div className="share-banner__actions">
+                    <a href={SHARE_INFO_FLYER_SRC} download className="btn btn-primary share-banner__btn">
+                      Télécharger notre affiche
+                    </a>
+                    <button
+                      type="button"
+                      className="btn btn-line share-banner__btn"
+                      onClick={() =>
+                        setActiveFlyer({
+                          src: SHARE_INFO_FLYER_SRC,
+                          title: "Affiche Lys’Espoir à partager",
+                        })
+                      }
+                    >
+                      Voir en grand
+                    </button>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="share-banner__thumb"
+                  onClick={() =>
+                    setActiveFlyer({
+                      src: SHARE_INFO_FLYER_SRC,
+                      title: "Affiche Lys’Espoir à partager",
+                    })
+                  }
+                  aria-label="Agrandir l’affiche à partager"
+                >
+                  <img src={SHARE_INFO_FLYER_SRC} alt="" loading="eager" decoding="async" />
+                </button>
+              </aside>
             </div>
           </div>
         </section>
@@ -548,7 +604,9 @@ function App() {
             <button type="button" className="flyer-modal__close" onClick={() => setActiveFlyer(null)} aria-label="Fermer">✕</button>
             <img src={activeFlyer.src} alt={activeFlyer.title} />
             <div className="flyer-modal__actions">
-              <a href={activeFlyer.src} download className="btn btn-primary btn-small">Télécharger ce flyer</a>
+              <a href={activeFlyer.src} download className="btn btn-primary btn-small">
+                {activeFlyer.src === SHARE_INFO_FLYER_SRC ? "Télécharger notre affiche" : "Télécharger ce flyer"}
+              </a>
             </div>
           </div>
         </div>
