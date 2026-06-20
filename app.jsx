@@ -64,7 +64,7 @@ function HeroCarousel({ photos }) {
               src={src}
               alt={`Lyséa - photo ${index + 1}`}
               loading={index === 0 ? "eager" : "lazy"}
-              fetchPriority={index === 0 ? "high" : "auto"}
+              fetchpriority={index === 0 ? "high" : "auto"}
               decoding="async"
               referrerPolicy="no-referrer"
             />
